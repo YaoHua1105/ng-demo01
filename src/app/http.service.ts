@@ -1,9 +1,19 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpResponse} from '@angular/common/http';
+import {Observable, throwError} from 'rxjs';
+import {catchError, retry} from 'rxjs/operators';
+import {TestBean} from './test-bean';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HttpService {
+  private apiUrl = 'https://api.he.chen09.xyz/test';
 
-  constructor() { }
-}
+  constructor(private httpClient: HttpClient) {
+  }
+
+  getTest(): Observable<TestBean> {
+    return this.httpClient.get<TestBean>(this.apiUrl);
+  }
+} 
